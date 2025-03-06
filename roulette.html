@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Color and Number Generator (50-50 Odds)</title>
+  <style>
+    /* Make the app responsive */
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container {
+      text-align: center;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 90%;
+      width: 100%;
+    }
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+      font-size: 2rem;
+    }
+    .output {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .red {
+      color: red;
+    }
+    .black {
+      color: black;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Random Color and Number Generator (50-50 Odds)</h1>
+    <div class="output">
+      <p><strong>Color:</strong> <span id="color">-</span></p>
+      <p><strong>Numbers:</strong> <span id="numbers">- -</span></p>
+    </div>
+    <button onclick="generate()">Generate</button>
+  </div>
+
+  <script>
+    function generate() {
+      // Generate a random color (50% Red, 50% Black)
+      const randomColor = Math.random() < 0.5 ? "red" : "black";
+
+      // Generate two unique random numbers between 1, 2, 3
+      const numbers = [1, 2, 3];
+      for (let i = numbers.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [numbers[i], numbers[j]] = [numbers[j], numbers[i]];
+      }
+      const [num1, num2] = numbers.slice(0, 2);
+
+      // Display the color and numbers
+      document.getElementById('color').textContent = randomColor;
+      document.getElementById('color').className = randomColor; // Add color class
+      document.getElementById('numbers').textContent = `${num1} ${num2}`;
+    }
+
+    // Add event listener for the Enter key
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        generate();
+      }
+    });
+
+    // Add event listener for screen tap (touch event)
+    document.addEventListener('touchstart', (event) => {
+      event.preventDefault(); // Prevent default touch behavior
+      generate();
+    });
+  </script>
+</body>
+</html>
